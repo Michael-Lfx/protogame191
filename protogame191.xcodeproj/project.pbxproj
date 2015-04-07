@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F2F50A891288DE981B40918 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1505159450DEC29C7F5EA3BB /* libPods.a */; };
 		BA9A3F021AD481B00043E716 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F011AD481B00043E716 /* main.m */; };
 		BA9A3F051AD481B00043E716 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F041AD481B00043E716 /* AppDelegate.m */; };
 		BA9A3F081AD481B00043E716 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F071AD481B00043E716 /* ViewController.m */; };
@@ -27,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1505159450DEC29C7F5EA3BB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3062F0648E835919B1C3345C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BA9A3EFC1AD481B00043E716 /* protogame191.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = protogame191.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9A3F001AD481B00043E716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA9A3F011AD481B00043E716 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +43,7 @@
 		BA9A3F151AD481B00043E716 /* protogame191Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = protogame191Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9A3F1A1AD481B00043E716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA9A3F1B1AD481B00043E716 /* protogame191Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = protogame191Tests.m; sourceTree = "<group>"; };
+		F4C819C73E0FF261E6C06D55 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F2F50A891288DE981B40918 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +71,8 @@
 				BA9A3EFE1AD481B00043E716 /* protogame191 */,
 				BA9A3F181AD481B00043E716 /* protogame191Tests */,
 				BA9A3EFD1AD481B00043E716 /* Products */,
+				F4DC915680CE641251717E29 /* Pods */,
+				F5C041A39276C48964FAD8F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +126,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F4DC915680CE641251717E29 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F4C819C73E0FF261E6C06D55 /* Pods.debug.xcconfig */,
+				3062F0648E835919B1C3345C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F5C041A39276C48964FAD8F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1505159450DEC29C7F5EA3BB /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +150,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BA9A3F1F1AD481B00043E716 /* Build configuration list for PBXNativeTarget "protogame191" */;
 			buildPhases = (
+				B9D598F7118D6A2CA53AC55B /* Check Pods Manifest.lock */,
 				BA9A3EF81AD481B00043E716 /* Sources */,
 				BA9A3EF91AD481B00043E716 /* Frameworks */,
 				BA9A3EFA1AD481B00043E716 /* Resources */,
+				47D1CFEE00CA65FD9D2205C0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,6 +239,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		47D1CFEE00CA65FD9D2205C0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9D598F7118D6A2CA53AC55B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BA9A3EF81AD481B00043E716 /* Sources */ = {
@@ -343,6 +402,7 @@
 		};
 		BA9A3F201AD481B00043E716 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4C819C73E0FF261E6C06D55 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = protogame191/Info.plist;
@@ -353,6 +413,7 @@
 		};
 		BA9A3F211AD481B00043E716 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3062F0648E835919B1C3345C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = protogame191/Info.plist;
@@ -414,6 +475,7 @@
 				BA9A3F211AD481B00043E716 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BA9A3F221AD481B00043E716 /* Build configuration list for PBXNativeTarget "protogame191Tests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +484,7 @@
 				BA9A3F241AD481B00043E716 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
