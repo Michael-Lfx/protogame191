@@ -17,6 +17,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    _audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]];
+    NSError *error = NULL;
+    BOOL result = [_audioController start:&error];
+    if (!result) {
+        // report error
+    }
+
     return YES;
 }
 

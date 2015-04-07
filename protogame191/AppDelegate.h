@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) AEAudioController *audioController;
 
 
 @end
