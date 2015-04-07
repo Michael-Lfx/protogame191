@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9F2F50A891288DE981B40918 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1505159450DEC29C7F5EA3BB /* libPods.a */; };
 		BA7E89D51AD485C70029B6D0 /* Conductor.mm in Sources */ = {isa = PBXBuildFile; fileRef = BA7E89D41AD485C70029B6D0 /* Conductor.mm */; };
+		BA7E89D71AD4922A0029B6D0 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7E89D61AD4922A0029B6D0 /* SpriteKit.framework */; };
+		BA7E89D91AD492300029B6D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7E89D81AD492300029B6D0 /* CoreGraphics.framework */; };
 		BA9A3F021AD481B00043E716 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F011AD481B00043E716 /* main.m */; };
 		BA9A3F051AD481B00043E716 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F041AD481B00043E716 /* AppDelegate.m */; };
 		BA9A3F081AD481B00043E716 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F071AD481B00043E716 /* ViewController.m */; };
@@ -33,6 +35,8 @@
 		3062F0648E835919B1C3345C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BA7E89D31AD485C70029B6D0 /* Conductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conductor.h; sourceTree = "<group>"; };
 		BA7E89D41AD485C70029B6D0 /* Conductor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Conductor.mm; sourceTree = "<group>"; };
+		BA7E89D61AD4922A0029B6D0 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		BA7E89D81AD492300029B6D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BA9A3EFC1AD481B00043E716 /* protogame191.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = protogame191.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9A3F001AD481B00043E716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA9A3F011AD481B00043E716 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA7E89D91AD492300029B6D0 /* CoreGraphics.framework in Frameworks */,
+				BA7E89D71AD4922A0029B6D0 /* SpriteKit.framework in Frameworks */,
 				9F2F50A891288DE981B40918 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +149,8 @@
 		F5C041A39276C48964FAD8F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA7E89D81AD492300029B6D0 /* CoreGraphics.framework */,
+				BA7E89D61AD4922A0029B6D0 /* SpriteKit.framework */,
 				1505159450DEC29C7F5EA3BB /* libPods.a */,
 			);
 			name = Frameworks;
