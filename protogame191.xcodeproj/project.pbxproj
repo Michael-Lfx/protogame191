@@ -18,6 +18,9 @@
 		BA9A3F0D1AD481B00043E716 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA9A3F0C1AD481B00043E716 /* Images.xcassets */; };
 		BA9A3F101AD481B00043E716 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA9A3F0E1AD481B00043E716 /* LaunchScreen.xib */; };
 		BA9A3F1C1AD481B00043E716 /* protogame191Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F1B1AD481B00043E716 /* protogame191Tests.m */; };
+		E64966021AD492E8002E47B1 /* DrumMachineScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966011AD492E8002E47B1 /* DrumMachineScene.m */; };
+		E64966051AD49CFE002E47B1 /* DrumPadNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966041AD49CFE002E47B1 /* DrumPadNode.m */; };
+		E64966081AD49D4C002E47B1 /* LoopTimeDisplayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966071AD49D4C002E47B1 /* LoopTimeDisplayNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,12 @@
 		BA9A3F151AD481B00043E716 /* protogame191Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = protogame191Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9A3F1A1AD481B00043E716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA9A3F1B1AD481B00043E716 /* protogame191Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = protogame191Tests.m; sourceTree = "<group>"; };
+		E64966001AD492E8002E47B1 /* DrumMachineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrumMachineScene.h; sourceTree = "<group>"; };
+		E64966011AD492E8002E47B1 /* DrumMachineScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrumMachineScene.m; sourceTree = "<group>"; };
+		E64966031AD49CFE002E47B1 /* DrumPadNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrumPadNode.h; sourceTree = "<group>"; };
+		E64966041AD49CFE002E47B1 /* DrumPadNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrumPadNode.m; sourceTree = "<group>"; };
+		E64966061AD49D4C002E47B1 /* LoopTimeDisplayNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopTimeDisplayNode.h; sourceTree = "<group>"; };
+		E64966071AD49D4C002E47B1 /* LoopTimeDisplayNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopTimeDisplayNode.m; sourceTree = "<group>"; };
 		F4C819C73E0FF261E6C06D55 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +112,12 @@
 				BA7E89D41AD485C70029B6D0 /* Conductor.mm */,
 				BA9A3F061AD481B00043E716 /* ViewController.h */,
 				BA9A3F071AD481B00043E716 /* ViewController.m */,
+				E64966001AD492E8002E47B1 /* DrumMachineScene.h */,
+				E64966011AD492E8002E47B1 /* DrumMachineScene.m */,
+				E64966031AD49CFE002E47B1 /* DrumPadNode.h */,
+				E64966041AD49CFE002E47B1 /* DrumPadNode.m */,
+				E64966061AD49D4C002E47B1 /* LoopTimeDisplayNode.h */,
+				E64966071AD49D4C002E47B1 /* LoopTimeDisplayNode.m */,
 				BA9A3F091AD481B00043E716 /* Main.storyboard */,
 				BA9A3F0E1AD481B00043E716 /* LaunchScreen.xib */,
 				BA9A3F0C1AD481B00043E716 /* Images.xcassets */,
@@ -291,8 +306,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E64966081AD49D4C002E47B1 /* LoopTimeDisplayNode.m in Sources */,
 				BA9A3F081AD481B00043E716 /* ViewController.m in Sources */,
+				E64966021AD492E8002E47B1 /* DrumMachineScene.m in Sources */,
 				BA9A3F051AD481B00043E716 /* AppDelegate.m in Sources */,
+				E64966051AD49CFE002E47B1 /* DrumPadNode.m in Sources */,
 				BA9A3F021AD481B00043E716 /* main.m in Sources */,
 				BA7E89D51AD485C70029B6D0 /* Conductor.mm in Sources */,
 			);

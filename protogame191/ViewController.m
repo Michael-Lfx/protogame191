@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DrumMachineScene.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    SKView *view = (SKView *)self.view;
+    view.frameInterval = 2;
+    DrumMachineScene *drumScene = [[DrumMachineScene alloc] initWithSize:self.view.frame.size];
+    [view presentScene:drumScene];
 }
 
 - (void)didReceiveMemoryWarning {
