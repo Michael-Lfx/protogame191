@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beats</key>
+	<integer>16</integer>
+	<key>bpm</key>
+	<integer>100</integer>
+	<key>beat values</key>
+	<dict>
+		<key>kick</key>
+		<array>
+			<integer>0</integer>
+			<real>0.75</real>
+			<real>1.5</real>
+			<real>2.5</real>
+			<integer>4</integer>
+			<real>4.75</real>
+			<real>5.5</real>
+			<real>6.5</real>
+			<integer>8</integer>
+			<real>8.75</real>
+			<real>9.5</real>
+			<real>10.5</real>
+		</array>
+		<key>snare</key>
+		<array>
+			<integer>1</integer>
+			<integer>3</integer>
+			<integer>5</integer>
+			<integer>7</integer>
+			<integer>9</integer>
+			<integer>11</integer>
+			<integer>13</integer>
+			<integer>15</integer>
+		</array>
+		<key>hi hat</key>
+		<array>
+			<real>12.5</real>
+			<integer>13</integer>
+			<real>14.5</real>
+			<integer>15</integer>
+		</array>
+		<key>high tom</key>
+		<array>
+			<integer>12</integer>
+			<integer>13</integer>
+		</array>
+		<key>low tom</key>
+		<array>
+			<integer>14</integer>
+			<integer>15</integer>
+		</array>
+	</dict>
+</dict>
+</plist>
