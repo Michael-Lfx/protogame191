@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "DrumMachineScene.h"
 #import "LoopData.h"
+#import "Conductor.h"
 
 @interface ViewController ()
 
@@ -34,6 +35,8 @@
         NSLog(@"%@: %@", instrumentName, [data getBeatValuesForInstrument:instrumentName]);
     }
     
+    Conductor *conductor = [[Conductor alloc] initWithLoopData:data];
+    [conductor start];
 }
 
 - (void)didReceiveMemoryWarning {

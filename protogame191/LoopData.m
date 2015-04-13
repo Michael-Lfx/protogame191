@@ -36,11 +36,11 @@
 }
 
 - (int)getBPM {
-    return [[_theData valueForKey:@"bpm"] integerValue];
+    return (int)[[_theData valueForKey:@"bpm"] integerValue];
 }
 
 - (int)getNumBeats {
-    return [[_theData valueForKey:@"beats"] integerValue];
+    return (int)[[_theData valueForKey:@"beats"] integerValue];
 }
 
 - (NSArray *)getInstrumentNames {
