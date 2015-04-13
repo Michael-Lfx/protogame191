@@ -12,6 +12,7 @@
 @interface Conductor ()
 
 @property(nonatomic) AEAudioController *audioController;
+@property(nonatomic) AEAudioFilePlayer *audioFilePlayer;
 
 @end
 
@@ -40,12 +41,34 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
     return self;
 }
 
+- (instancetype)initWithLoopData:(LoopData *)data {
+    self = [super init];
+    
+    if (self) {
+        AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        _audioController = delegate.audioController;
+        _audioController.preferredBufferDuration = AEConvertFramesToSeconds(_audioController, frameSize);
+        
+        NSURL *file = [[NSBundle mainBundle] URLForResource:[data getFilename] withExtension:[data getFiletype]];
+        _audioFilePlayer = [AEAudioFilePlayer audioFilePlayerWithURL:file audioController:_audioController error:NULL];
+        _audioFilePlayer.loop = true;
+    }
+    
+    return self;
+}
+
 - (void)start {
     [_audioController addTimingReceiver:self];
+    [_audioController addChannels:[NSArray arrayWithObject:_audioFilePlayer]];
 }
 
 - (void)stop {
     [_audioController removeTimingReceiver:self];
+    [_audioController removeChannels:[NSArray arrayWithObject:_audioFilePlayer]];
+}
+
+- (BOOL)didPlayInstrument:(int)instrumentNumber onBeat:(int)beatValue {
+    return false;
 }
 
 @end

@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
+#import "LoopData.h"
 
 @interface Conductor : NSObject <AEAudioTimingReceiver>
 
 - (instancetype)init;
+- (instancetype)initWithLoopData:(LoopData *)data;
 - (void)start;
 - (void)stop;
+- (BOOL)didPlayInstrument:(int)instrumentNumber onBeat:(int)beatValue;
 
 @end
