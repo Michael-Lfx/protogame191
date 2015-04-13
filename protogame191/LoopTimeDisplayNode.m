@@ -25,20 +25,36 @@
 
 - (void)initializeView {
     _timeLine = [self buildTimeLine];
+    [self initWithInfo:nil];
 }
 
 - (void)initWithInfo:(NSDictionary *)info{
-    _beatsPerMeasure = info[@"beatsPerMeasure"] ? (int)info[@"beatsPerMeasure"] : 4;
+    _beatsInSoundFile = info[@"beatsInSoundFile"] ? (int)info[@"beatsInSoundFile"] : 16;
+    _beatsPerMinute = info[@"beatsPerMinute"] ? (int)info[@"beatsPerMinute"] : 100;
     _possibleNotes = info[@"numPossibleNotes"] ? (int)info[@"numPossibleNotes"] : 2;
 }
 
 - (SKShapeNode*) buildTimeLine{
-    CGRect rect = CGRectMake(0, 0, 1, 20);
+    CGFloat height = [UIScreen mainScreen].bounds.size.width/2;
+    CGRect rect = CGRectMake(0, 0, .5, height);
     SKShapeNode *timeLine = [SKShapeNode shapeNodeWithRect:rect];
     timeLine.fillColor = [SKColor redColor];
     timeLine.strokeColor = [SKColor redColor];
     [self addChild:timeLine];
     return timeLine;
+}
+
+- (void)moveTimeline {
+    SKAction *reset = [SKAction moveToX:0 duration:0];
+    _timeLine.position = CGPointMake(0, 0);
+    CGFloat loopTime = _beatsInSoundFile/_beatsPerMinute * 60;
+    SKAction *animateLine = [SKAction moveToX:self.frame.size.width duration:loopTime];
+    SKAction *loop = [SKAction repeatActionForever:[SKAction sequence:@[reset, animateLine]]];
+    [_timeLine runAction:loop withKey:@"moveTimeline"];
+}
+
+- (void)stopTimeline {
+    [_timeLine removeActionForKey:@"moveTimeline"];
 }
 
 @end

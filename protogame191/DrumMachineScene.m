@@ -43,10 +43,14 @@
 
 - (void)createTimeDisplay{
     float screenWidth = [UIScreen mainScreen].bounds.size.width;
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGRect rect = CGRectMake(0, 0, screenWidth, screenWidth/2);
-    LoopTimeDisplayNode *timeDisplay = [LoopTimeDisplayNode shapeNodeWithRect:rect cornerRadius:2];
-    [self addChild:timeDisplay];
+    _timeDisplay = [LoopTimeDisplayNode shapeNodeWithRect:rect cornerRadius:2];
+    [self addChild:_timeDisplay];
+    [_timeDisplay moveTimeline];
+}
+
+-(void)update:(NSTimeInterval)currentTime{
+    
 }
 
 @end

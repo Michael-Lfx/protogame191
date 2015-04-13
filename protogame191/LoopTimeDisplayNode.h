@@ -11,8 +11,10 @@
 @interface LoopTimeDisplayNode : SKShapeNode
 
 - (void)initWithInfo:(NSDictionary *)info;
+- (void)moveTimeline;
+- (void)stopTimeline;
 
-@property int beatsPerMeasure;
+@property int beatsInSoundFile;
 @property int possibleNotes;
 @property float beatsPerMinute;
 @property SKShapeNode *timeLine;

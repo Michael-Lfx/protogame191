@@ -13,4 +13,6 @@
 
 @interface DrumMachineScene : SKScene
 
+@property LoopTimeDisplayNode *timeDisplay;
+
 @end
