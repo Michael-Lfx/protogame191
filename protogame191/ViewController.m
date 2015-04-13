@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "DrumMachineScene.h"
+#import "LoopData.h"
 
 @interface ViewController ()
 
@@ -22,6 +23,17 @@
     view.frameInterval = 2;
     DrumMachineScene *drumScene = [[DrumMachineScene alloc] initWithSize:self.view.frame.size];
     [view presentScene:drumScene];
+    
+    LoopData *data = [[LoopData alloc] initWithDataFile:@"drum_simple_data"];
+    NSLog(@"%@", [data getFilename]);
+    NSLog(@"%@", [data getFiletype]);
+    NSLog(@"%i", [data getBPM]);
+    NSLog(@"%i", [data getNumBeats]);
+    NSArray *instrumentNames = [data getInstrumentNames];
+    for (NSString *instrumentName in instrumentNames) {
+        NSLog(@"%@: %@", instrumentName, [data getBeatValuesForInstrument:instrumentName]);
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

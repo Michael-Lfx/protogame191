@@ -14,5 +14,6 @@
 - (instancetype)init;
 - (void)start;
 - (void)stop;
+- (BOOL)didPlayInstrument:(int)instrumentNumber onBeat:(int)beatValue;
 
 @end

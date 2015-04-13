@@ -48,4 +48,8 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
     [_audioController removeTimingReceiver:self];
 }
 
+- (BOOL)didPlayInstrument:(int)instrumentNumber onBeat:(int)beatValue {
+    return false;
+}
+
 @end

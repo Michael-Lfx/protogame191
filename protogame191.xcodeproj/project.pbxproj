@@ -20,6 +20,7 @@
 		BA9A3F1C1AD481B00043E716 /* protogame191Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F1B1AD481B00043E716 /* protogame191Tests.m */; };
 		BAB7DBDB1ADC74F3005D431E /* drum_simple.aif in Resources */ = {isa = PBXBuildFile; fileRef = BAB7DBDA1ADC74F3005D431E /* drum_simple.aif */; };
 		BAB7DBDD1ADC7539005D431E /* drum_simple_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAB7DBDC1ADC7539005D431E /* drum_simple_data.plist */; };
+		BAB7DBE01ADC814F005D431E /* LoopData.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB7DBDF1ADC814F005D431E /* LoopData.m */; };
 		E64966021AD492E8002E47B1 /* DrumMachineScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966011AD492E8002E47B1 /* DrumMachineScene.m */; };
 		E64966051AD49CFE002E47B1 /* DrumPadNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966041AD49CFE002E47B1 /* DrumPadNode.m */; };
 		E64966081AD49D4C002E47B1 /* LoopTimeDisplayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966071AD49D4C002E47B1 /* LoopTimeDisplayNode.m */; };
@@ -57,6 +58,8 @@
 		BA9A3F1B1AD481B00043E716 /* protogame191Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = protogame191Tests.m; sourceTree = "<group>"; };
 		BAB7DBDA1ADC74F3005D431E /* drum_simple.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = drum_simple.aif; sourceTree = "<group>"; };
 		BAB7DBDC1ADC7539005D431E /* drum_simple_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = drum_simple_data.plist; sourceTree = "<group>"; };
+		BAB7DBDE1ADC814F005D431E /* LoopData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopData.h; sourceTree = "<group>"; };
+		BAB7DBDF1ADC814F005D431E /* LoopData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopData.m; sourceTree = "<group>"; };
 		E64966001AD492E8002E47B1 /* DrumMachineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrumMachineScene.h; sourceTree = "<group>"; };
 		E64966011AD492E8002E47B1 /* DrumMachineScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrumMachineScene.m; sourceTree = "<group>"; };
 		E64966031AD49CFE002E47B1 /* DrumPadNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrumPadNode.h; sourceTree = "<group>"; };
@@ -119,22 +122,24 @@
 		BA9A3EFE1AD481B00043E716 /* protogame191 */ = {
 			isa = PBXGroup;
 			children = (
-				BA1774BF1ADC6F8100334B8A /* Audio */,
 				BA9A3F031AD481B00043E716 /* AppDelegate.h */,
 				BA9A3F041AD481B00043E716 /* AppDelegate.m */,
-				BA7E89D31AD485C70029B6D0 /* Conductor.h */,
-				BA7E89D41AD485C70029B6D0 /* Conductor.mm */,
 				BA9A3F061AD481B00043E716 /* ViewController.h */,
 				BA9A3F071AD481B00043E716 /* ViewController.m */,
+				BA7E89D31AD485C70029B6D0 /* Conductor.h */,
+				BA7E89D41AD485C70029B6D0 /* Conductor.mm */,
 				E64966001AD492E8002E47B1 /* DrumMachineScene.h */,
 				E64966011AD492E8002E47B1 /* DrumMachineScene.m */,
 				E64966031AD49CFE002E47B1 /* DrumPadNode.h */,
 				E64966041AD49CFE002E47B1 /* DrumPadNode.m */,
+				BAB7DBDE1ADC814F005D431E /* LoopData.h */,
+				BAB7DBDF1ADC814F005D431E /* LoopData.m */,
 				E64966061AD49D4C002E47B1 /* LoopTimeDisplayNode.h */,
 				E64966071AD49D4C002E47B1 /* LoopTimeDisplayNode.m */,
 				BA9A3F091AD481B00043E716 /* Main.storyboard */,
 				BA9A3F0E1AD481B00043E716 /* LaunchScreen.xib */,
 				BA9A3F0C1AD481B00043E716 /* Images.xcassets */,
+				BA1774BF1ADC6F8100334B8A /* Audio */,
 				BA9A3EFF1AD481B00043E716 /* Supporting Files */,
 			);
 			path = protogame191;
@@ -323,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E64966081AD49D4C002E47B1 /* LoopTimeDisplayNode.m in Sources */,
+				BAB7DBE01ADC814F005D431E /* LoopData.m in Sources */,
 				BA9A3F081AD481B00043E716 /* ViewController.m in Sources */,
 				E64966021AD492E8002E47B1 /* DrumMachineScene.m in Sources */,
 				BA9A3F051AD481B00043E716 /* AppDelegate.m in Sources */,
