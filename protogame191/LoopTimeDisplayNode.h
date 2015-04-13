@@ -17,7 +17,8 @@
 @property int beatsInSoundFile;
 @property int possibleNotes;
 @property float beatsPerMinute;
-@property SKShapeNode *timeLine;
+@property SKShapeNode *midiData;
+@property SKShapeNode *midiCopy;
 
 
 @end
