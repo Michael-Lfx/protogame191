@@ -12,10 +12,8 @@
 
 @interface Conductor : NSObject <AEAudioTimingReceiver>
 
-- (instancetype)init;
 - (instancetype)initWithLoopData:(LoopData *)data;
 - (void)start;
 - (void)stop;
-- (BOOL)didPlayInstrument:(int)instrumentNumber onBeat:(int)beatValue;
 
 @end
