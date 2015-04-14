@@ -16,8 +16,21 @@
     self.backgroundColor = [SKColor colorWithRed:10.0/255 green:55.0/255 blue:70.0/255 alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFit;
     
+    _loopData = [[LoopData alloc] initWithDataFile:@"drum_simple_data"];
+    NSLog(@"%@", [_loopData getFilename]);
+    NSLog(@"%@", [_loopData getFiletype]);
+    NSLog(@"%i", [_loopData getBPM]);
+    NSLog(@"%i", [_loopData getNumBeats]);
+    NSArray *instrumentNames = [_loopData getInstrumentNames];
+    for (NSString *instrumentName in instrumentNames) {
+        NSLog(@"%@: %@", instrumentName, [_loopData getBeatValuesForInstrument:instrumentName]);
+    }
+    
+    _conductor = [[Conductor alloc] initWithLoopData:_loopData];
+    
     [self addPads];
     [self createTimeDisplay];
+    [self addChild: [self playButton]];
     
     self.view.frameInterval = 2;
 }
@@ -41,12 +54,33 @@
     }
 }
 
+- (SKSpriteNode *)playButton
+{
+    SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(80,40)];
+    playButton.position = CGPointMake(150 ,200);
+    playButton.name = @"playButton";//how the node is identified later
+    return playButton;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    
+    //if fire button touched, bring the rain
+    if ([node.name isEqualToString:@"playButton"]) {
+        [_timeDisplay moveTimeline];
+        [_conductor start];
+    }
+}
+
 - (void)createTimeDisplay{
     float screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGRect rect = CGRectMake(0, 0, screenWidth, screenWidth/2);
     _timeDisplay = [LoopTimeDisplayNode shapeNodeWithRect:rect cornerRadius:2];
+    [_timeDisplay initWithInfo:_loopData];
     [self addChild:_timeDisplay];
-    [_timeDisplay moveTimeline];
 }
 
 -(void)update:(NSTimeInterval)currentTime{

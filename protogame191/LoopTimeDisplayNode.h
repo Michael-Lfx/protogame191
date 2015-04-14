@@ -7,18 +7,18 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "LoopData.h"
+#import "MidiDataDisplayNode.h"
 
 @interface LoopTimeDisplayNode : SKShapeNode
 
-- (void)initWithInfo:(NSDictionary *)info;
+- (void)initWithInfo:(LoopData *)loopData;
 - (void)moveTimeline;
 - (void)stopTimeline;
 
-@property int beatsInSoundFile;
-@property int possibleNotes;
-@property float beatsPerMinute;
-@property SKShapeNode *midiData;
-@property SKShapeNode *midiCopy;
+@property LoopData *loopData;
+@property MidiDataDisplayNode *midiData;
+@property MidiDataDisplayNode *midiCopy;
 
 
 @end

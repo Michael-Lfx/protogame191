@@ -41,9 +41,7 @@
 		<key>hi hat</key>
 		<array>
 			<real>12.5</real>
-			<integer>13</integer>
 			<real>14.5</real>
-			<integer>15</integer>
 		</array>
 		<key>high tom</key>
 		<array>

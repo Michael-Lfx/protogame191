@@ -24,27 +24,24 @@
 }
 
 - (void)initializeView {
-    [self buildMidiData];
     [self buildPlayHead];
-    [self addChild:_midiData];
-    [self initWithInfo:nil];
 }
 
-- (void)initWithInfo:(NSDictionary *)info{
-    _beatsInSoundFile = info[@"beatsInSoundFile"] ? (int)info[@"beatsInSoundFile"] : 16;
-    _beatsPerMinute = info[@"beatsPerMinute"] ? (int)info[@"beatsPerMinute"] : 100;
-    _possibleNotes = info[@"numPossibleNotes"] ? (int)info[@"numPossibleNotes"] : 2;
+- (void)initWithInfo:(LoopData *)data{
+    _loopData = data;
+    [self buildMidiData];
 }
 
 - (void)buildMidiData {
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.width/2;
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGRect rect = CGRectMake(0, 5, screenWidth, screenHeight - 10);
-    SKShapeNode *midiData = [SKShapeNode shapeNodeWithRect:rect cornerRadius:5];
-    midiData.fillColor = [SKColor blueColor];
-    midiData.alpha = .7;
-    _midiData = midiData;
-    _midiCopy = midiData;
+    CGRect rect = CGRectMake(0, 5, screenWidth * 1.5, screenHeight - 10);
+    _midiData = [MidiDataDisplayNode shapeNodeWithRect:rect cornerRadius:5];
+    _midiCopy = [MidiDataDisplayNode shapeNodeWithRect:rect cornerRadius:5];
+    [_midiData initWithInfo:_loopData];
+    [_midiCopy initWithInfo:_loopData];
+    [self addChild:_midiData];
+    [self addChild:_midiCopy];
 }
 
 - (void) buildPlayHead{
@@ -80,17 +77,32 @@
 
 - (void)moveTimeline {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat midiWidth = _midiData.frame.size.width;
     CGFloat xAnchor = screenWidth/4;
-    SKAction *reset = [SKAction moveToX:xAnchor duration:0];
-    _midiData.position = CGPointMake(0, 0);
-    CGFloat loopTime = _beatsInSoundFile/_beatsPerMinute * 60;
-    SKAction *animateLine = [SKAction moveToX:(xAnchor - _midiData.frame.size.width) duration:loopTime];
-    SKAction *loop = [SKAction repeatActionForever:[SKAction sequence:@[reset, animateLine]]];
-    [_midiData runAction:loop withKey:@"moveTimeline"];
+    CGFloat loopTime = (float)_loopData.getNumBeats/_loopData.getBPM * 60;
+    
+    SKAction *startDataPlacement = [SKAction moveToX:xAnchor + midiWidth duration:0];
+    SKAction *startData = [SKAction sequence:@[startDataPlacement, [SKAction moveToX:xAnchor-midiWidth duration:(loopTime*2)]]];
+    
+    SKAction *startCopyPlacement = [SKAction moveToX:xAnchor + (midiWidth*2) duration:0];
+    SKAction *startCopy = [SKAction sequence:@[startCopyPlacement, [SKAction moveToX:xAnchor - (midiWidth) duration:(loopTime)*3]]];
+    
+    SKAction *animateDataOut = [SKAction moveToX:xAnchor-(midiWidth*5/4) duration:loopTime/4];
+    SKAction *resetData = [SKAction moveToX:xAnchor + (midiWidth*3/4) duration:0];
+    SKAction *animateDataLoop = [SKAction moveToX:(xAnchor - midiWidth) duration:loopTime*7/4];
+    SKAction *loopData = [SKAction repeatActionForever:[SKAction sequence:@[animateDataOut, resetData, animateDataLoop]]];
+    
+    [_midiData runAction:startData completion:^(void){
+        [_midiData runAction:loopData withKey:@"moveData"];
+    }];
+    [_midiCopy runAction:startCopy completion:^(void){
+        [_midiCopy runAction:loopData withKey:@"moveData"];
+    }];
+    
 }
 
 - (void)stopTimeline {
-    [_midiData removeActionForKey:@"moveTimeline"];
+    [_midiData removeActionForKey:@"moveData"];
 }
 
 @end
