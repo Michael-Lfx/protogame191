@@ -68,7 +68,6 @@
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
     
-    //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"playButton"]) {
         [_timeDisplay moveTimeline];
         [_conductor start];
