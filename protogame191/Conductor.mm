@@ -135,12 +135,16 @@ void TOThrowOnError(OSStatus status)
 - (void)start {
     [_audioController addTimingReceiver:self];
     [_audioController addChannels:[NSArray arrayWithObject:_audioFilePlayer]];
-    [_audioController addFilter:_testEQ];
+    [_audioController addFilter:_testEQ toChannel:_audioFilePlayer];
 }
 
 - (void)stop {
     [_audioController removeTimingReceiver:self];
     [_audioController removeChannels:[NSArray arrayWithObject:_audioFilePlayer]];
+}
+
+- (double)getCurrentBeat {
+    return 0;
 }
 
 @end
