@@ -44,7 +44,7 @@
 }
 
 - (NSArray *)getInstrumentNames {
-    return [[_theData valueForKey:@"beat values"] allKeys];
+    return [[[_theData valueForKey:@"beat values"] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
 
 - (NSArray *)getBeatValuesForInstrument:(NSString *)instrumentName {
