@@ -58,20 +58,27 @@
     for(NSString *name in [_loopData getInstrumentNames]){
         NSArray *beats = [_loopData getBeatValuesForInstrument:name];
         for(NSNumber *beat in beats){
-            [self addNoteAtBeat:beat forInstrument:name];
+            [self addNoteAtBeat:beat forInstrument:name color:[SKColor grayColor]];
         }
     }
 }
 
-- (void)addNoteAtBeat:(NSNumber *)beat forInstrument:(NSString *)name{
+- (void)addNoteAtBeat:(NSNumber *)beat forInstrument:(NSString *)name color:(SKColor*)noteColor{
     float beatValue = beat.floatValue;
     int numInstruments = [_loopData getInstrumentNames].count;
     int row = [[_loopData getInstrumentNames] indexOfObject:name];
-    float beatYOrigin = self.frame.size.height/numInstruments * row;
+    float beatYOrigin = (self.frame.size.height * row / numInstruments) + 10;
     float beatXOrigin = self.frame.size.width * beatValue / [_loopData getNumBeats];
     CGRect rect = CGRectMake(beatXOrigin, beatYOrigin, 10, 5);
     SKShapeNode *note = [SKShapeNode shapeNodeWithRect:rect cornerRadius:3];
+    note.fillColor = noteColor;
+    note.strokeColor = noteColor;
     [self addChild:note];
+}
+
+-(void)addUserMidiNote:(NSString *)instrument atBeat:(double)beatHit correct:(BOOL)correct{
+    SKColor *correctColor = correct ? [SKColor greenColor] : [SKColor redColor];
+    [self addNoteAtBeat:[NSNumber numberWithDouble:beatHit] forInstrument:instrument color:correctColor];
 }
 
 @end

@@ -42,6 +42,7 @@
     float yOffset = screenWidth/3;
     float xStart = screenWidth/6;
     float bufferZone = 60;
+    NSArray *instrumentNames = [_loopData getInstrumentNames];
     for (int i = 1; i<=3; i++){
         for(int j=1; j<=3; j++){
             float xCenter = screenWidth/3 * i - xStart;
@@ -49,6 +50,10 @@
             CGRect rect = CGRectMake(xCenter - squareWidth/2, yCenter + squareWidth/2, squareWidth, squareWidth);
             DrumPadNode *drumPad = [DrumPadNode shapeNodeWithRect:rect cornerRadius:5];
             [drumPad setUpNode];
+            int padIndex = 3*(3-j) + i - 1; // indexed 0-8 starting in bottom left working across
+            if(padIndex < instrumentNames.count){
+                drumPad.name = instrumentNames[padIndex];
+            }
             [self addChild:drumPad];
         }
     }
@@ -71,6 +76,11 @@
     if ([node.name isEqualToString:@"playButton"]) {
         [_timeDisplay moveTimeline];
         [_conductor start];
+    } else if ([[_loopData getInstrumentNames] indexOfObject:node.name] != NSNotFound){
+        double beatHit = [_conductor getCurrentBeat]; // get current time from conductor
+        //bool correct = [_conductor isBeatCorrect:node.name beat:beatHit]; //get bool value of correctness from conductor
+        [_timeDisplay addUserMidiNote:node.name atBeat:beatHit correct:YES];
+        
     }
 }
 

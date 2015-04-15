@@ -105,4 +105,9 @@
     [_midiData removeActionForKey:@"moveData"];
 }
 
+- (void)addUserMidiNote:(NSString *)instrument atBeat:(double)beatHit correct:(BOOL)correct{
+    [_midiData addUserMidiNote:instrument atBeat:beatHit correct:correct];
+    [_midiCopy addUserMidiNote:instrument atBeat:beatHit correct:correct];
+}
+
 @end

@@ -12,6 +12,8 @@
 @interface MidiDataDisplayNode : SKShapeNode
 
 - (void) initWithInfo:(LoopData*)loopData;
+- (void) addUserMidiNote:(NSString *)instrument atBeat:(double)beatHit correct:(BOOL)correct;
+
 @property LoopData *loopData;
 
 @end
