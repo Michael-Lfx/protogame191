@@ -153,7 +153,7 @@ void TOThrowOnError(OSStatus status)
 - (void)start {
     [_audioController addTimingReceiver:self];
     [_audioController addChannels:[NSArray arrayWithObject:_audioFilePlayer]];
-    [_audioController addFilter:_testEQ toChannel:_audioFilePlayer];
+//    [_audioController addFilter:_testEQ toChannel:_audioFilePlayer];
 }
 
 - (void)stop {

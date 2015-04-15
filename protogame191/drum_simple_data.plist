@@ -54,5 +54,43 @@
 			<integer>15</integer>
 		</array>
 	</dict>
+	<key>eq values</key>
+	<dict>
+		<key>01 kick</key>
+		<dict>
+			<key>bandwidth</key>
+			<integer>0</integer>
+			<key>frequency</key>
+			<integer>0</integer>
+		</dict>
+		<key>02 snare</key>
+		<dict>
+			<key>bandwidth</key>
+			<integer>0</integer>
+			<key>frequency</key>
+			<integer>0</integer>
+		</dict>
+		<key>03 hi hat</key>
+		<dict>
+			<key>bandwidth</key>
+			<integer>0</integer>
+			<key>frequency</key>
+			<integer>0</integer>
+		</dict>
+		<key>04 high tom</key>
+		<dict>
+			<key>bandwidth</key>
+			<integer>0</integer>
+			<key>frequency</key>
+			<integer>0</integer>
+		</dict>
+		<key>05 low tom</key>
+		<dict>
+			<key>bandwidth</key>
+			<integer>0</integer>
+			<key>frequency</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
 </dict>
 </plist>
