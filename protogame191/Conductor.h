@@ -15,5 +15,6 @@
 - (instancetype)initWithLoopData:(LoopData *)data;
 - (void)start;
 - (void)stop;
+- (double)getCurrentBeat;
 
 @end

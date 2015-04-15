@@ -13,8 +13,8 @@
 - (instancetype)initWithDataFile:(NSString *)filename;
 - (NSString *)getFilename;
 - (NSString *)getFiletype;
-- (int)getBPM;
-- (int)getNumBeats;
+- (long)getBPM;
+- (long)getNumBeats;
 - (NSArray *)getInstrumentNames;
 - (NSArray *)getBeatValuesForInstrument:(NSString *)instrumentNumber;
 

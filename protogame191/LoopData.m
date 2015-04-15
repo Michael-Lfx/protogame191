@@ -35,12 +35,12 @@
     return [_theData valueForKey:@"filetype"];
 }
 
-- (int)getBPM {
-    return (int)[[_theData valueForKey:@"bpm"] integerValue];
+- (long)getBPM {
+    return [[_theData valueForKey:@"bpm"] integerValue];
 }
 
-- (int)getNumBeats {
-    return (int)[[_theData valueForKey:@"beats"] integerValue];
+- (long)getNumBeats {
+    return [[_theData valueForKey:@"beats"] integerValue];
 }
 
 - (NSArray *)getInstrumentNames {
