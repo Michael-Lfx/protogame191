@@ -47,8 +47,34 @@
     return [[[_theData valueForKey:@"beat values"] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
 
+- (double)getEQFrequencyForInstrument:(NSString *)instrumentName {
+    return [[[[_theData valueForKey:@"eq values"] valueForKey:instrumentName] valueForKey:@"frequency"] doubleValue];
+}
+
+- (double)getEQBandwidthForInstrument:(NSString *)instrumentName {
+    return [[[[_theData valueForKey:@"eq values"] valueForKey:instrumentName] valueForKey:@"bandwidth"] doubleValue];
+}
+
 - (NSArray *)getBeatValuesForInstrument:(NSString *)instrumentName {
     return [[_theData valueForKey:@"beat values"] valueForKey:instrumentName];
+}
+
+- (NSDictionary *)getBeatMap {
+    NSMutableDictionary *beatMap = [[NSMutableDictionary alloc] init];
+    
+    NSArray *instrumentNames = [self getInstrumentNames];
+    for (NSString *name in instrumentNames) {
+        NSArray *beatValues = [self getBeatValuesForInstrument:name];
+        for (NSNumber *value in beatValues) {
+            if ([beatMap objectForKey:value] == nil) {
+                [beatMap setObject:[NSMutableArray arrayWithObject:name] forKey:value];
+            } else {
+                [[beatMap objectForKey:value] addObject:name];
+            }
+        }
+    }
+    NSLog(@"%@", beatMap);
+    return beatMap;
 }
 
 @end

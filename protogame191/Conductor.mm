@@ -60,6 +60,8 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
         _audioFilePlayer = [AEAudioFilePlayer audioFilePlayerWithURL:file audioController:_audioController error:NULL];
         _audioFilePlayer.loop = true;
         
+        [data getBeatMap];
+        
         _testEQ = [[AEAudioUnitFilter alloc] initWithComponentDescription:AEAudioComponentDescriptionMake(kAudioUnitManufacturer_Apple, kAudioUnitType_Effect, kAudioUnitSubType_NBandEQ) audioController:_audioController error:NULL];
         
         UInt32 numBands = 5;
@@ -153,7 +155,7 @@ void TOThrowOnError(OSStatus status)
 - (void)start {
     [_audioController addTimingReceiver:self];
     [_audioController addChannels:[NSArray arrayWithObject:_audioFilePlayer]];
-    [_audioController addFilter:_testEQ toChannel:_audioFilePlayer];
+//    [_audioController addFilter:_testEQ toChannel:_audioFilePlayer];
 }
 
 - (void)stop {
