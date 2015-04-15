@@ -16,6 +16,9 @@
 - (long)getBPM;
 - (long)getNumBeats;
 - (NSArray *)getInstrumentNames;
-- (NSArray *)getBeatValuesForInstrument:(NSString *)instrumentNumber;
+- (double)getEQFrequencyForInstrument:(NSString *)instrumentName;
+- (double)getEQBandwidthForInstrument:(NSString *)instrumentName;
+- (NSArray *)getBeatValuesForInstrument:(NSString *)instrumentName;
+- (NSDictionary *)getBeatMap;
 
 @end

@@ -59,37 +59,37 @@
 		<key>01 kick</key>
 		<dict>
 			<key>bandwidth</key>
-			<integer>0</integer>
+			<real>0.1</real>
 			<key>frequency</key>
-			<integer>0</integer>
+			<integer>64</integer>
 		</dict>
 		<key>02 snare</key>
 		<dict>
 			<key>bandwidth</key>
-			<integer>0</integer>
+			<real>0.05</real>
 			<key>frequency</key>
-			<integer>0</integer>
+			<integer>133</integer>
 		</dict>
 		<key>03 hi hat</key>
 		<dict>
 			<key>bandwidth</key>
-			<integer>0</integer>
+			<real>0.1</real>
 			<key>frequency</key>
-			<integer>0</integer>
+			<integer>324</integer>
 		</dict>
 		<key>04 high tom</key>
 		<dict>
 			<key>bandwidth</key>
-			<integer>0</integer>
+			<real>0.25</real>
 			<key>frequency</key>
-			<integer>0</integer>
+			<integer>2060</integer>
 		</dict>
 		<key>05 low tom</key>
 		<dict>
 			<key>bandwidth</key>
-			<integer>0</integer>
+			<real>0.25</real>
 			<key>frequency</key>
-			<integer>0</integer>
+			<integer>10030</integer>
 		</dict>
 	</dict>
 </dict>

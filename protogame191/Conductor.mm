@@ -35,6 +35,8 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
     _currentFrames += frames;
     if (_currentFrames > _maxFrames) _currentFrames -= _maxFrames;
     _currentBeat = (_currentFrames / _maxFrames) * _numBeats;
+    
+//    cout << _currentBeat << endl;
 }
 
 - (AEAudioControllerTimingCallback)timingReceiverCallback {
@@ -59,6 +61,8 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
         NSURL *file = [[NSBundle mainBundle] URLForResource:[data getFilename] withExtension:[data getFiletype]];
         _audioFilePlayer = [AEAudioFilePlayer audioFilePlayerWithURL:file audioController:_audioController error:NULL];
         _audioFilePlayer.loop = true;
+        
+        [data getBeatMap];
         
         _testEQ = [[AEAudioUnitFilter alloc] initWithComponentDescription:AEAudioComponentDescriptionMake(kAudioUnitManufacturer_Apple, kAudioUnitType_Effect, kAudioUnitSubType_NBandEQ) audioController:_audioController error:NULL];
         
