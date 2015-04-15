@@ -15,6 +15,7 @@
 - (void)initWithInfo:(LoopData *)loopData;
 - (void)moveTimeline;
 - (void)stopTimeline;
+- (void)addUserMidiNote:(NSString *)instrument atBeat:(double)beatHit correct:(BOOL)correct;
 
 @property LoopData *loopData;
 @property MidiDataDisplayNode *midiData;
