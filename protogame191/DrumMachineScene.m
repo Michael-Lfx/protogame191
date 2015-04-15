@@ -27,13 +27,49 @@
     }
     
     _conductor = [[Conductor alloc] initWithLoopData:_loopData];
+    _nextBeat = 0;
     
     [self addPads];
     [self createTimeDisplay];
     [self addChild: [self playButton]];
     
+    [_conductor addObserver:self forKeyPath:@"currentBeat" options:0 context:nil];
+    
     self.view.frameInterval = 2;
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"currentBeat"]){
+        double currTime = [_conductor getCurrentBeat];
+        if((currTime > _nextBeat && _nextBeat) || (!_nextBeat && _resetLoopBeat)){
+            _resetLoopBeat = NO;
+            NSDictionary *beatMap = [_loopData getBeatMap];
+            NSArray *beatsToFire = [beatMap objectForKey:[NSNumber numberWithDouble:_nextBeat]];
+            for(NSString *instrumentName in beatsToFire){
+                SKNode *nodeToFlash = [self childNodeWithName:instrumentName];
+                NSLog(@"Flash node with name: %@ at beat %f", instrumentName, _nextBeat);
+            }
+            NSArray *sortedKeys = [[beatMap allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                NSNumber *num1 = obj1;
+                NSNumber *num2 = obj2;
+                if ( num1.doubleValue < num2.doubleValue ) {
+                    return (NSComparisonResult)NSOrderedAscending;
+                }
+                return (NSComparisonResult)NSOrderedDescending;
+            }];
+            // check if user has hit the beat yet if not, turn on filter/fire mistakes
+            int indexOfNextKey = [sortedKeys indexOfObject:[NSNumber numberWithDouble:_nextBeat]] + 1;
+            if(indexOfNextKey >= sortedKeys.count){
+                _resetLoopBeat = YES;
+                indexOfNextKey = 0;
+            }
+            _nextBeat = ((NSNumber *)sortedKeys[indexOfNextKey]).doubleValue; // update next beat by iterating through keys
+        }
+    }
+}
+
+- (void)
 
 - (void)addPads{
     float squareWidth = 80;

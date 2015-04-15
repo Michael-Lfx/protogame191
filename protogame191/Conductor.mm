@@ -27,14 +27,13 @@ long _framesPerBeat = 0;
 long _numBeats = 0;
 long _maxFrames = 0;
 double _currentFrames = 0;
-double _currentBeat = 0;
 
 void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudioController *audioController, const AudioTimeStamp *time, UInt32 frames, AEAudioTimingContext context) {
     if (context != AEAudioTimingContextOutput) return;
     
     _currentFrames += frames;
     if (_currentFrames > _maxFrames) _currentFrames -= _maxFrames;
-    _currentBeat = (_currentFrames / _maxFrames) * _numBeats;
+    ((Conductor *)receiver).currentBeat = (_currentFrames / _maxFrames) * _numBeats;
 }
 
 - (AEAudioControllerTimingCallback)timingReceiverCallback {
@@ -55,6 +54,7 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
         _framesPerBeat = AEConvertSecondsToFrames(_audioController, secondsPerBeat);
         _numBeats = [data getNumBeats];
         _maxFrames = _numBeats * _framesPerBeat;
+        _currentBeat = 0;
         
         NSURL *file = [[NSBundle mainBundle] URLForResource:[data getFilename] withExtension:[data getFiletype]];
         _audioFilePlayer = [AEAudioFilePlayer audioFilePlayerWithURL:file audioController:_audioController error:NULL];

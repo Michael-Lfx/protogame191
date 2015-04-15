@@ -17,4 +17,6 @@
 - (void)stop;
 - (double)getCurrentBeat;
 
+@property double currentBeat;
+
 @end

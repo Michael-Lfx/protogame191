@@ -18,5 +18,7 @@
 @property LoopTimeDisplayNode *timeDisplay;
 @property Conductor *conductor;
 @property LoopData *loopData;
+@property double nextBeat;
+@property BOOL resetLoopBeat;
 
 @end
