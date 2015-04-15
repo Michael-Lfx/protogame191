@@ -8,6 +8,8 @@
 
 #import "Conductor.h"
 #import "AppDelegate.h"
+#include <iostream>
+using namespace std;
 
 @interface Conductor ()
 
@@ -19,11 +21,20 @@
 
 @implementation Conductor
 
-long frameSize = 256;
+long _frameSize = 256;
+
+long _framesPerBeat = 0;
+long _numBeats = 0;
+long _maxFrames = 0;
+double _currentFrames = 0;
+double _currentBeat = 0;
 
 void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudioController *audioController, const AudioTimeStamp *time, UInt32 frames, AEAudioTimingContext context) {
     if (context != AEAudioTimingContextOutput) return;
     
+    _currentFrames += frames;
+    if (_currentFrames > _maxFrames) _currentFrames -= _maxFrames;
+    _currentBeat = (_currentFrames / _maxFrames) * _numBeats;
 }
 
 - (AEAudioControllerTimingCallback)timingReceiverCallback {
@@ -34,9 +45,16 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
     self = [super init];
     
     if (self) {
+        
         AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         _audioController = delegate.audioController;
-        _audioController.preferredBufferDuration = AEConvertFramesToSeconds(_audioController, frameSize);
+        _audioController.preferredBufferDuration = AEConvertFramesToSeconds(_audioController, _frameSize);
+        
+        double BPM = [data getBPM];
+        double secondsPerBeat = 60.0 / BPM;
+        _framesPerBeat = AEConvertSecondsToFrames(_audioController, secondsPerBeat);
+        _numBeats = [data getNumBeats];
+        _maxFrames = _numBeats * _framesPerBeat;
         
         NSURL *file = [[NSBundle mainBundle] URLForResource:[data getFilename] withExtension:[data getFiletype]];
         _audioFilePlayer = [AEAudioFilePlayer audioFilePlayerWithURL:file audioController:_audioController error:NULL];
@@ -144,7 +162,7 @@ void TOThrowOnError(OSStatus status)
 }
 
 - (double)getCurrentBeat {
-    return 0;
+    return _currentBeat;
 }
 
 @end
