@@ -11,5 +11,7 @@
 @interface DrumPadNode : SKShapeNode
 
 - (void)setUpNode;
+- (void)flashNode;
+- (void)unflashNode;
 
 @end

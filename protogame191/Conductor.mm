@@ -16,6 +16,7 @@ using namespace std;
 @property(nonatomic) AEAudioController *audioController;
 @property(nonatomic) AEAudioFilePlayer *audioFilePlayer;
 @property(nonatomic) AEAudioUnitFilter *testEQ;
+@property BOOL isPlaying;
 
 @end
 
@@ -140,6 +141,7 @@ void timingCallback(__unsafe_unretained id receiver, __unsafe_unretained AEAudio
         
     }
     
+    _isPlaying = NO;
     return self;
 }
 
@@ -155,16 +157,22 @@ void TOThrowOnError(OSStatus status)
 - (void)start {
     [_audioController addTimingReceiver:self];
     [_audioController addChannels:[NSArray arrayWithObject:_audioFilePlayer]];
+    _isPlaying = YES;
 //    [_audioController addFilter:_testEQ toChannel:_audioFilePlayer];
 }
 
 - (void)stop {
     [_audioController removeTimingReceiver:self];
     [_audioController removeChannels:[NSArray arrayWithObject:_audioFilePlayer]];
+    _isPlaying = NO;
 }
 
 - (double)getCurrentBeat {
     return _currentBeat;
+}
+
+- (BOOL)getIsPlaying {
+    return _isPlaying;
 }
 
 @end

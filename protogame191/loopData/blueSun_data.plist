@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>filetype</key>
+	<string>aif</string>
+	<key>filename</key>
+	<string>loopData/relaxation-blueSun-90</string>
+	<key>beats</key>
+	<integer>16</integer>
+	<key>bpm</key>
+	<integer>90</integer>
+	<key>beat values</key>
+	<dict>
+		<key>01 note_1</key>
+		<array>
+			<integer>0</integer>
+		</array>
+	</dict>
+	<key>eq values</key>
+	<dict>
+		<key>01 kick</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.1</real>
+			<key>frequency</key>
+			<integer>64</integer>
+		</dict>
+		<key>02 snare</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.05</real>
+			<key>frequency</key>
+			<integer>133</integer>
+		</dict>
+		<key>03 hi hat</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.1</real>
+			<key>frequency</key>
+			<integer>324</integer>
+		</dict>
+		<key>04 high tom</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.25</real>
+			<key>frequency</key>
+			<integer>2060</integer>
+		</dict>
+		<key>05 low tom</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.25</real>
+			<key>frequency</key>
+			<integer>10030</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>

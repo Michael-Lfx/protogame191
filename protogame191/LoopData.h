@@ -15,6 +15,7 @@
 - (NSString *)getFiletype;
 - (long)getBPM;
 - (long)getNumBeats;
+- (double)getLastBeat;
 - (NSArray *)getInstrumentNames;
 - (double)getEQFrequencyForInstrument:(NSString *)instrumentName;
 - (double)getEQBandwidthForInstrument:(NSString *)instrumentName;

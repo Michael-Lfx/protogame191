@@ -25,4 +25,19 @@
     
 }
 
+- (void)flashNode{
+    self.fillColor = [SKColor colorWithWhite:1 alpha:.95];
+//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(unflash) userInfo:nil repeats:NO];
+//    [self performSelector:@selector(unflash) withObject:nil afterDelay:.01];
+//    [NSTimer scheduledTimerWithTimeInterval:0.5
+//                                     target:self
+//                                   selector:@selector(unflash)
+//                                   userInfo:nil
+//                                    repeats:NO];
+}
+
+- (void)unflashNode{
+    self.fillColor = [SKColor colorWithWhite:1 alpha:.6];
+}
+
 @end

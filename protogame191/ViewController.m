@@ -10,6 +10,7 @@
 #import "DrumMachineScene.h"
 #import "LoopData.h"
 #import "Conductor.h"
+#import "SongSliderScene.h"
 
 @interface ViewController ()
 
@@ -22,8 +23,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     SKView *view = (SKView *)self.view;
     view.frameInterval = 2;
-    DrumMachineScene *drumScene = [[DrumMachineScene alloc] initWithSize:self.view.frame.size];
-    [view presentScene:drumScene];
+//    DrumMachineScene *drumScene = [[DrumMachineScene alloc] initWithSize:self.view.frame.size];
+    SongSliderScene *sliderScene = [[SongSliderScene alloc] initWithSize:self.view.frame.size];
+    [view presentScene:sliderScene];
 }
 
 - (void)didReceiveMemoryWarning {

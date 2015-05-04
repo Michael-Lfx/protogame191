@@ -16,6 +16,7 @@
 - (void)start;
 - (void)stop;
 - (double)getCurrentBeat;
+- (BOOL)getIsPlaying;
 
 @property double currentBeat;
 

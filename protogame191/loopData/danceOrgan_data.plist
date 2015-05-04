@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>filetype</key>
+	<string>aif</string>
+	<key>filename</key>
+	<string>loopData/relaxation-danceOrgan-90</string>
+	<key>beats</key>
+	<integer>16</integer>
+	<key>bpm</key>
+	<integer>90</integer>
+	<key>beat values</key>
+	<dict>
+		<key>01 note_1</key>
+		<array>
+			<integer>0</integer>
+			<real>11.5</real>
+		</array>
+		<key>02 note_2</key>
+		<array>
+			<integer>8</integer>
+			<integer>12</integer>
+		</array>
+		<key>03 note_3</key>
+		<array>
+			<real>3.5</real>
+			<real>11.75</real>
+		</array>
+		<key>04 note_4</key>
+		<array>
+			<real>1.5</real>
+			<real>13.5</real>
+		</array>
+	</dict>
+	<key>eq values</key>
+	<dict>
+		<key>01 kick</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.1</real>
+			<key>frequency</key>
+			<integer>64</integer>
+		</dict>
+		<key>02 snare</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.05</real>
+			<key>frequency</key>
+			<integer>133</integer>
+		</dict>
+		<key>03 hi hat</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.1</real>
+			<key>frequency</key>
+			<integer>324</integer>
+		</dict>
+		<key>04 high tom</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.25</real>
+			<key>frequency</key>
+			<integer>2060</integer>
+		</dict>
+		<key>05 low tom</key>
+		<dict>
+			<key>bandwidth</key>
+			<real>0.25</real>
+			<key>frequency</key>
+			<integer>10030</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -17,17 +17,18 @@
     self.scaleMode = SKSceneScaleModeAspectFit;
     
     _loopData = [[LoopData alloc] initWithDataFile:@"drum_simple_data"];
-    NSLog(@"%@", [_loopData getFilename]);
-    NSLog(@"%@", [_loopData getFiletype]);
-    NSLog(@"%i", [_loopData getBPM]);
-    NSLog(@"%i", [_loopData getNumBeats]);
-    NSArray *instrumentNames = [_loopData getInstrumentNames];
-    for (NSString *instrumentName in instrumentNames) {
-        NSLog(@"%@: %@", instrumentName, [_loopData getBeatValuesForInstrument:instrumentName]);
-    }
+//    NSLog(@"%@", [_loopData getFilename]);
+//    NSLog(@"%@", [_loopData getFiletype]);
+//    NSLog(@"%i", [_loopData getBPM]);
+//    NSLog(@"%i", [_loopData getNumBeats]);
+//    NSArray *instrumentNames = [_loopData getInstrumentNames];
+//    for (NSString *instrumentName in instrumentNames) {
+//        NSLog(@"%@: %@", instrumentName, [_loopData getBeatValuesForInstrument:instrumentName]);
+//    }
     
     _conductor = [[Conductor alloc] initWithLoopData:_loopData];
     _nextBeat = 0;
+    _resetLoopBeat = YES;
     
     [self addPads];
     [self createTimeDisplay];
@@ -47,8 +48,10 @@
             NSDictionary *beatMap = [_loopData getBeatMap];
             NSArray *beatsToFire = [beatMap objectForKey:[NSNumber numberWithDouble:_nextBeat]];
             for(NSString *instrumentName in beatsToFire){
-                SKNode *nodeToFlash = [self childNodeWithName:instrumentName];
-                NSLog(@"Flash node with name: %@ at beat %f", instrumentName, _nextBeat);
+                DrumPadNode *nodeToFlash = (DrumPadNode *)[self childNodeWithName:instrumentName];
+//                NSLog(@"Flash node with name: %@ at beat %f", instrumentName, _nextBeat);
+                [nodeToFlash flashNode];
+                [nodeToFlash performSelector:@selector(unflashNode) withObject:nil afterDelay:.1];
             }
             NSArray *sortedKeys = [[beatMap allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 NSNumber *num1 = obj1;
@@ -68,8 +71,6 @@
         }
     }
 }
-
-- (void)
 
 - (void)addPads{
     float squareWidth = 80;

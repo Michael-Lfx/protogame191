@@ -1,0 +1,190 @@
+//
+//  SongSliderScene.m
+//  protogame191
+//
+//  Created by Ben McK on 4/27/15.
+//  Copyright (c) 2015 Henry Thiemann. All rights reserved.
+//
+
+#import "SongSliderScene.h"
+
+@implementation SongSliderScene
+
+- (void) didMoveToView:(SKView *)view
+{
+    /* Setup your scene here */
+    self.backgroundColor = [SKColor colorWithRed:10.0/255 green:55.0/255 blue:70.0/255 alpha:1.0];
+    self.scaleMode = SKSceneScaleModeAspectFit;
+    
+    _loopData = [[LoopData alloc] initWithDataFile:@"loopData/carrier_data"]; // weird with beach, bluesun, distantPianet, eightiesEP
+    _conductor = [[Conductor alloc] initWithLoopData:_loopData];
+    _nextBeat = 0;
+    _resetLoopTime = 0;
+    _resetLoopBeat = YES;
+    _streakCounter = 0;
+    
+    [_conductor addObserver:self forKeyPath:@"currentBeat" options:0 context:nil];
+    
+    self.view.frameInterval = 2;
+    
+    [self addSlider];
+    [self addBallCover];
+    [self initStreakDisplay];
+    [self addChild: [self playButton]];
+}
+
+-(void) addSlider
+{
+    float screenWidth = [UIScreen mainScreen].bounds.size.width;
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGRect frame = CGRectMake(0, screenHeight * 3/4, screenWidth, 60);
+    _slider = [[UISlider alloc] initWithFrame:frame];
+    [_slider setBackgroundColor:[UIColor clearColor]];
+    _slider.minimumValue = 0.0;
+    _slider.maximumValue = 100.0;
+    UIImage *sliderThumb = [UIImage imageNamed: @"Triangle_9"];
+    UIImage *sliderThumbScaled = [UIImage imageWithCGImage:sliderThumb.CGImage scale:2 orientation:UIImageOrientationUp];
+    [[UISlider appearance] setThumbImage:sliderThumbScaled forState:UIControlStateNormal];
+    [[UISlider appearance] setMaximumTrackTintColor:self.backgroundColor];
+    [[UISlider appearance] setMinimumTrackTintColor:self.backgroundColor];
+    _slider.continuous = YES;
+    [self.view addSubview:_slider];
+}
+     
+-(void) addBallCover
+{
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGRect rect = CGRectMake(0, 0, screenWidth, (screenHeight -_slider.frame.origin.y) + [_slider thumbImageForState:UIControlStateNormal].size.height/2);
+    SKShapeNode *ballCover = [SKShapeNode shapeNodeWithRect:rect];
+    ballCover.strokeColor = ballCover.fillColor = self.backgroundColor;
+    [self addChild:ballCover];
+}
+
+-(void)initStreakDisplay{
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    _streakDisplay = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%i", _streakCounter]];
+    _streakDisplay.fontSize = 18;
+    _streakDisplay.fontColor = [UIColor whiteColor];
+    _streakDisplay.fontName = @"Avenir-Medium";
+    [_streakDisplay setPosition: CGPointMake(screenWidth - 25, screenHeight - 60)];
+    _streakDisplay.alpha = .6;
+    _streakDisplay.userInteractionEnabled = NO;
+    [self addChild:_streakDisplay];
+}
+
+- (SKSpriteNode *)playButton
+{
+    SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(80,40)];
+    playButton.position = CGPointMake(150, 60);
+    playButton.name = @"playButton";//how the node is identified later
+    return playButton;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    
+    if ([node.name isEqualToString:@"playButton"]) {
+        NSLog(@"Is playing: %d", (BOOL)[_conductor getIsPlaying]);
+        if((BOOL)[_conductor getIsPlaying]){
+            [_conductor stop];
+        } else {
+            [_conductor start];
+        }
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"currentBeat"]){
+        double currTime = [_conductor getCurrentBeat];
+        double preBeat = 2;
+        double animationDuration = preBeat * 60/[_loopData getBPM];
+        if(_resetLoopTime && (CACurrentMediaTime() - _resetLoopTime > preBeat)){   //// BUGGY FIX THIS for distant pianet
+            _resetLoopBeat = YES;
+        }
+        if(currTime > [_loopData getNumBeats]-preBeat){
+            currTime -= [_loopData getNumBeats];
+        }
+        if((currTime > _nextBeat - preBeat && _nextBeat) || (!_nextBeat && _resetLoopBeat)){
+            _resetLoopBeat = NO;
+            NSDictionary *beatMap = [_loopData getBeatMap];
+            NSArray *beatsToFire = [beatMap objectForKey:[NSNumber numberWithDouble:_nextBeat]];
+            for(NSString *instrumentName in beatsToFire){
+                [self dropBall:instrumentName duration:animationDuration];
+            }
+            _nextBeat = [self getNextBeat:beatMap];// update next beat by iterating through keys
+        }
+    }
+}
+
+- (double)getNextBeat:(NSDictionary *)beatMap
+{
+    NSArray *sortedKeys = [[beatMap allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSNumber *num1 = obj1;
+        NSNumber *num2 = obj2;
+        if ( num1.doubleValue < num2.doubleValue ) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedDescending;
+    }];
+    // check if user has hit the beat yet if not, turn on filter/fire mistakes
+    int indexOfNextKey = [sortedKeys indexOfObject:[NSNumber numberWithDouble:_nextBeat]] + 1;
+    if(indexOfNextKey >= sortedKeys.count){
+        indexOfNextKey = 0;
+        _resetLoopTime = CACurrentMediaTime();
+    }
+    return ((NSNumber *)sortedKeys[indexOfNextKey]).doubleValue;
+}
+
+- (void)dropBall:(NSString *)instrumentName duration:(double)animationDuration
+{
+    int noteNumber = [[instrumentName substringFromIndex:(instrumentName.length - 1)] intValue];
+    int numInstruments = [[_loopData getInstrumentNames] count];
+    int column = numInstruments - noteNumber;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    SKShapeNode *circle = [SKShapeNode shapeNodeWithCircleOfRadius:20];
+    circle.fillColor = [SKColor greenColor];
+    [circle setPosition:CGPointMake(column * screenWidth/numInstruments + (screenWidth/numInstruments)/2, screenHeight + circle.frame.size.height/2)];
+    [self addChild:circle];
+    circle.zPosition = -1;
+    SKAction *dropBall = [SKAction moveToY:screenHeight/5 + circle.frame.size.height/2 duration:animationDuration];
+    [circle runAction:dropBall completion:^(void){
+        if(_slider.value >= _slider.maximumValue * (column/(double)numInstruments) && _slider.value <= _slider.maximumValue * (column+1)/(double)numInstruments){
+            _streakCounter ++;
+        } else {
+            _streakCounter = 0;
+            [self flashRedScreen];
+        }
+        [self updateStreakCounterDisplay];
+        [self removeChildrenInArray:@[circle]];
+    }];
+
+}
+
+- (void)flashRedScreen
+{
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGRect rect = CGRectMake(0, 0, screenWidth, screenHeight);
+    SKShapeNode *redCover = [SKShapeNode shapeNodeWithRect:rect];
+    redCover.fillColor = [SKColor redColor];
+    redCover.userInteractionEnabled = NO;
+    [self addChild:redCover];
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:.4];
+    [redCover runAction:fadeOut completion:^(void){
+        [self removeChildrenInArray:@[redCover]];
+    }];
+}
+
+- (void)updateStreakCounterDisplay
+{
+    _streakDisplay.text = [NSString stringWithFormat:@"%i", _streakCounter];
+}
+
+@end

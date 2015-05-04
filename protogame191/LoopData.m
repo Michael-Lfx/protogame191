@@ -43,6 +43,10 @@
     return [[_theData valueForKey:@"beats"] integerValue];
 }
 
+- (double)getLastBeat {
+    return [[_theData valueForKey:@"lastBeat"] doubleValue];
+}
+
 - (NSArray *)getInstrumentNames {
     return [[[_theData valueForKey:@"beat values"] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
@@ -73,7 +77,7 @@
             }
         }
     }
-    NSLog(@"%@", beatMap);
+//    NSLog(@"%@", beatMap);
     return beatMap;
 }
 
