@@ -11,6 +11,7 @@
 #import "LoopData.h"
 #import "Conductor.h"
 #import "SongSliderScene.h"
+#import "SongTrainScene.h"
 
 @interface ViewController ()
 
@@ -25,7 +26,8 @@
     view.frameInterval = 2;
 //    DrumMachineScene *drumScene = [[DrumMachineScene alloc] initWithSize:self.view.frame.size];
     SongSliderScene *sliderScene = [[SongSliderScene alloc] initWithSize:self.view.frame.size];
-    [view presentScene:sliderScene];
+    SongTrainScene *trainScene = [[SongTrainScene alloc] initWithSize:self.view.frame.size];
+    [view presentScene:trainScene];
 }
 
 - (void)didReceiveMemoryWarning {
