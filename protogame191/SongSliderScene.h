@@ -18,6 +18,7 @@
 @property double nextBeat;
 @property BOOL resetLoopBeat;
 @property double resetLoopTime;
+@property double lastBeat;
 @property UISlider *slider;
 @property int streakCounter;
 @property SKLabelNode *streakDisplay;

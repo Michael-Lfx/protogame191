@@ -16,12 +16,13 @@
     self.backgroundColor = [SKColor colorWithRed:10.0/255 green:55.0/255 blue:70.0/255 alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFit;
     
-    _loopData = [[LoopData alloc] initWithDataFile:@"loopData/carrier_data"]; // weird with beach, bluesun, distantPianet, eightiesEP
+    _loopData = [[LoopData alloc] initWithDataFile:@"loopData/bouncingMark_data"]; // weird with beach, blueSun, distantPianet
     _conductor = [[Conductor alloc] initWithLoopData:_loopData];
-    _nextBeat = 0;
+    _nextBeat = [self getFirstBeat];
     _resetLoopTime = 0;
-    _resetLoopBeat = YES;
+    _resetLoopBeat = NO;
     _streakCounter = 0;
+    _lastBeat = -1; // this signals we don't know what last beat is.
     
     [_conductor addObserver:self forKeyPath:@"currentBeat" options:0 context:nil];
     
@@ -103,14 +104,14 @@
     if ([keyPath isEqualToString:@"currentBeat"]){
         double currTime = [_conductor getCurrentBeat];
         double preBeat = 2;
+        double firingTime = currTime + preBeat;
         double animationDuration = preBeat * 60/[_loopData getBPM];
-        if(_resetLoopTime && (CACurrentMediaTime() - _resetLoopTime > preBeat)){   //// BUGGY FIX THIS for distant pianet
-            _resetLoopBeat = YES;
+        if(firingTime > [_loopData getNumBeats]){ // now it oscilates from 0 to 16
+            firingTime -= [_loopData getNumBeats];
         }
-        if(currTime > [_loopData getNumBeats]-preBeat){
-            currTime -= [_loopData getNumBeats];
-        }
-        if((currTime > _nextBeat - preBeat && _nextBeat) || (!_nextBeat && _resetLoopBeat)){
+        if(firingTime > _nextBeat && (!_resetLoopBeat ||
+           (_resetLoopBeat && (_resetLoopTime && (CACurrentMediaTime() - _resetLoopTime > [_loopData getNumBeats]-_lastBeat-preBeat)) && firingTime < .5 + [self getFirstBeat]))){
+            double timeWindow = CACurrentMediaTime() - _resetLoopTime;
             _resetLoopBeat = NO;
             NSDictionary *beatMap = [_loopData getBeatMap];
             NSArray *beatsToFire = [beatMap objectForKey:[NSNumber numberWithDouble:_nextBeat]];
@@ -120,6 +121,20 @@
             _nextBeat = [self getNextBeat:beatMap];// update next beat by iterating through keys
         }
     }
+}
+
+- (double)getFirstBeat
+{
+    NSDictionary *beatMap = [_loopData getBeatMap];
+    NSArray *sortedKeys = [[beatMap allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSNumber *num1 = obj1;
+        NSNumber *num2 = obj2;
+        if ( num1.doubleValue < num2.doubleValue ) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedDescending;
+    }];
+    return ((NSNumber *)sortedKeys[0]).doubleValue;
 }
 
 - (double)getNextBeat:(NSDictionary *)beatMap
@@ -137,6 +152,8 @@
     if(indexOfNextKey >= sortedKeys.count){
         indexOfNextKey = 0;
         _resetLoopTime = CACurrentMediaTime();
+        _lastBeat = _nextBeat;
+        _resetLoopBeat = YES;
     }
     return ((NSNumber *)sortedKeys[indexOfNextKey]).doubleValue;
 }
