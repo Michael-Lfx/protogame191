@@ -20,10 +20,12 @@
 		BA9A3F1C1AD481B00043E716 /* protogame191Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9A3F1B1AD481B00043E716 /* protogame191Tests.m */; };
 		BAB7DBE01ADC814F005D431E /* LoopData.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB7DBDF1ADC814F005D431E /* LoopData.m */; };
 		E60FDDA01AF91CB700A4AC94 /* SongTrainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E60FDD9F1AF91CB700A4AC94 /* SongTrainScene.m */; };
+		E60FDDA31AF98E0100A4AC94 /* SongSwipeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E60FDDA21AF98E0100A4AC94 /* SongSwipeScene.m */; };
 		E6374EE21ADDC5AB00F1CD8A /* MidiDataDisplayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E6374EE11ADDC5AB00F1CD8A /* MidiDataDisplayNode.m */; };
 		E64966021AD492E8002E47B1 /* DrumMachineScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966011AD492E8002E47B1 /* DrumMachineScene.m */; };
 		E64966051AD49CFE002E47B1 /* DrumPadNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966041AD49CFE002E47B1 /* DrumPadNode.m */; };
 		E64966081AD49D4C002E47B1 /* LoopTimeDisplayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E64966071AD49D4C002E47B1 /* LoopTimeDisplayNode.m */; };
+		E650FF231AFC6C78004AAF9C /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E650FF221AFC6C78004AAF9C /* arrow.png */; };
 		E66334681AEED6CF00A12274 /* SongSliderScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E66334671AEED6CF00A12274 /* SongSliderScene.m */; };
 		E663346A1AEEDF0300A12274 /* Triangle_9.png in Resources */ = {isa = PBXBuildFile; fileRef = E66334691AEEDF0300A12274 /* Triangle_9.png */; };
 		E6E443841AF05F1D0002EA59 /* loopData in Resources */ = {isa = PBXBuildFile; fileRef = E6E443831AF05F1D0002EA59 /* loopData */; };
@@ -63,6 +65,8 @@
 		BAB7DBDF1ADC814F005D431E /* LoopData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopData.m; sourceTree = "<group>"; };
 		E60FDD9E1AF91CB700A4AC94 /* SongTrainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTrainScene.h; sourceTree = "<group>"; };
 		E60FDD9F1AF91CB700A4AC94 /* SongTrainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTrainScene.m; sourceTree = "<group>"; };
+		E60FDDA11AF98E0100A4AC94 /* SongSwipeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSwipeScene.h; sourceTree = "<group>"; };
+		E60FDDA21AF98E0100A4AC94 /* SongSwipeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSwipeScene.m; sourceTree = "<group>"; };
 		E6374EE01ADDC5AB00F1CD8A /* MidiDataDisplayNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiDataDisplayNode.h; sourceTree = "<group>"; };
 		E6374EE11ADDC5AB00F1CD8A /* MidiDataDisplayNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiDataDisplayNode.m; sourceTree = "<group>"; };
 		E64966001AD492E8002E47B1 /* DrumMachineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrumMachineScene.h; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 		E64966041AD49CFE002E47B1 /* DrumPadNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrumPadNode.m; sourceTree = "<group>"; };
 		E64966061AD49D4C002E47B1 /* LoopTimeDisplayNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopTimeDisplayNode.h; sourceTree = "<group>"; };
 		E64966071AD49D4C002E47B1 /* LoopTimeDisplayNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopTimeDisplayNode.m; sourceTree = "<group>"; };
+		E650FF221AFC6C78004AAF9C /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		E66334661AEED6CF00A12274 /* SongSliderScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSliderScene.h; sourceTree = "<group>"; };
 		E66334671AEED6CF00A12274 /* SongSliderScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSliderScene.m; sourceTree = "<group>"; };
 		E66334691AEEDF0300A12274 /* Triangle_9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Triangle_9.png; sourceTree = "<group>"; };
@@ -123,10 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				E6E443811AF052AD0002EA59 /* main */,
-				E66334661AEED6CF00A12274 /* SongSliderScene.h */,
-				E66334671AEED6CF00A12274 /* SongSliderScene.m */,
-				E60FDD9E1AF91CB700A4AC94 /* SongTrainScene.h */,
-				E60FDD9F1AF91CB700A4AC94 /* SongTrainScene.m */,
+				E60FDDA41AF98E4700A4AC94 /* miniGames */,
 				E6E443821AF052EF0002EA59 /* drumMachineScene */,
 				E6E443831AF05F1D0002EA59 /* loopData */,
 				BA9A3F091AD481B00043E716 /* Main.storyboard */,
@@ -164,9 +166,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E60FDDA41AF98E4700A4AC94 /* miniGames */ = {
+			isa = PBXGroup;
+			children = (
+				E66334661AEED6CF00A12274 /* SongSliderScene.h */,
+				E66334671AEED6CF00A12274 /* SongSliderScene.m */,
+				E60FDD9E1AF91CB700A4AC94 /* SongTrainScene.h */,
+				E60FDD9F1AF91CB700A4AC94 /* SongTrainScene.m */,
+				E60FDDA11AF98E0100A4AC94 /* SongSwipeScene.h */,
+				E60FDDA21AF98E0100A4AC94 /* SongSwipeScene.m */,
+			);
+			name = miniGames;
+			sourceTree = "<group>";
+		};
 		E6E4437A1AF00D380002EA59 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				E650FF221AFC6C78004AAF9C /* arrow.png */,
 				E66334691AEEDF0300A12274 /* Triangle_9.png */,
 			);
 			name = assets;
@@ -304,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6E443841AF05F1D0002EA59 /* loopData in Resources */,
+				E650FF231AFC6C78004AAF9C /* arrow.png in Resources */,
 				BA9A3F0B1AD481B00043E716 /* Main.storyboard in Resources */,
 				BA9A3F101AD481B00043E716 /* LaunchScreen.xib in Resources */,
 				E663346A1AEEDF0300A12274 /* Triangle_9.png in Resources */,
@@ -366,6 +383,7 @@
 				BA9A3F081AD481B00043E716 /* ViewController.m in Sources */,
 				E64966021AD492E8002E47B1 /* DrumMachineScene.m in Sources */,
 				BA9A3F051AD481B00043E716 /* AppDelegate.m in Sources */,
+				E60FDDA31AF98E0100A4AC94 /* SongSwipeScene.m in Sources */,
 				E64966051AD49CFE002E47B1 /* DrumPadNode.m in Sources */,
 				BA9A3F021AD481B00043E716 /* main.m in Sources */,
 				BA7E89D51AD485C70029B6D0 /* Conductor.mm in Sources */,

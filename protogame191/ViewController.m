@@ -12,6 +12,7 @@
 #import "Conductor.h"
 #import "SongSliderScene.h"
 #import "SongTrainScene.h"
+#import "SongSwipeScene.h"
 
 @interface ViewController ()
 
@@ -27,7 +28,8 @@
 //    DrumMachineScene *drumScene = [[DrumMachineScene alloc] initWithSize:self.view.frame.size];
     SongSliderScene *sliderScene = [[SongSliderScene alloc] initWithSize:self.view.frame.size];
     SongTrainScene *trainScene = [[SongTrainScene alloc] initWithSize:self.view.frame.size];
-    [view presentScene:trainScene];
+    SongSwipeScene *swipeScene = [[SongSwipeScene alloc] initWithSize:self.view.frame.size];
+    [view presentScene:swipeScene];
 }
 
 - (void)didReceiveMemoryWarning {

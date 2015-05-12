@@ -10,29 +10,31 @@
 
 @implementation SongTrainScene
 
+#pragma mark - INITIALIZATION
+
 - (void) didMoveToView:(SKView *)view
 {
-    /* Setup your scene here */
+    // setup scene
     self.backgroundColor = [SKColor colorWithRed:10.0/255 green:55.0/255 blue:70.0/255 alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFit;
     
-    _loopData = [[LoopData alloc] initWithDataFile:@"loopData/bouncingMark_data"]; // weird with beach, blueSun, distantPianet
+    // setup global variables
+    _loopData = [[LoopData alloc] initWithDataFile:@"loopData/drum_simple_data"];
     _conductor = [[Conductor alloc] initWithLoopData:_loopData];
     _nextBeat = [self getFirstBeat];
     _resetLoopTime = 0;
     _resetLoopBeat = NO;
     _streakCounter = 0;
     _lastBeat = -1; // this signals we don't know what last beat is.
-    
-    [_conductor addObserver:self forKeyPath:@"currentBeat" options:0 context:nil];
-    
-    self.view.frameInterval = 2;
-    
     float screenWidth = [UIScreen mainScreen].bounds.size.width;
     _leftTrackCenter = screenWidth/3;
     _rightTrackCenter = screenWidth*2/3;
     
-    [self addTrackCover];
+    
+    [_conductor addObserver:self forKeyPath:@"currentBeat" options:0 context:nil];
+    self.view.frameInterval = 2;
+    
+    // add nodes
     [self addButtons];
     [self addTrain];
     [self initStreakDisplay];
@@ -42,34 +44,25 @@
 -(void) addButtons
 {
     float screenWidth = [UIScreen mainScreen].bounds.size.width;
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    // left button
     SKSpriteNode *leftButton = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(screenWidth/2,100)];
     leftButton.position = CGPointMake(leftButton.frame.size.width/2, leftButton.frame.size.height/2);
     leftButton.name = @"leftButton";//how the node is identified later
     leftButton.color = [SKColor purpleColor];
+    [self addChild:leftButton];
+    // right button
     SKSpriteNode *rightButton = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(screenWidth/2,100)];
     rightButton.position = CGPointMake(screenWidth/2 + rightButton.frame.size.width/2, rightButton.frame.size.height/2);
     rightButton.name = @"rightButton";//how the node is identified later
     rightButton.color = [SKColor greenColor];
-    [self addChild:leftButton];
     [self addChild:rightButton];
-}
-
--(void) addTrackCover
-{
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGRect rect = CGRectMake(0, 0, screenWidth, screenHeight/3);
-    SKShapeNode *ballCover = [SKShapeNode shapeNodeWithRect:rect];
-    ballCover.strokeColor = ballCover.fillColor = self.backgroundColor;
-    [self addChild:ballCover];
 }
 
 - (void)addTrain
 {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    _train = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(40, 70)];
+    _train = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(30, 50)];
     _train.position = CGPointMake(screenWidth/2, screenHeight/3);
     [self addChild:_train];
 }
@@ -96,6 +89,8 @@
     playButton.name = @"playButton";//how the node is identified later
     return playButton;
 }
+
+#pragma mark - INTERACTION
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -133,6 +128,28 @@
     [_train runAction:jump];
 }
 
+- (void)flashRedScreen
+{
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGRect rect = CGRectMake(0, 0, screenWidth, screenHeight);
+    SKShapeNode *redCover = [SKShapeNode shapeNodeWithRect:rect];
+    redCover.fillColor = [SKColor redColor];
+    redCover.userInteractionEnabled = NO;
+    [self addChild:redCover];
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:.4];
+    [redCover runAction:fadeOut completion:^(void){
+        [self removeChildrenInArray:@[redCover]];
+    }];
+}
+
+- (void)updateStreakCounterDisplay
+{
+    _streakDisplay.text = [NSString stringWithFormat:@"%i", _streakCounter];
+}
+
+#pragma mark - TRAIN TRACKS
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"currentBeat"]){
@@ -148,10 +165,14 @@
             _resetLoopBeat = NO;
             NSDictionary *beatMap = [_loopData getBeatMap];
             NSArray *beatsToFire = [beatMap objectForKey:[NSNumber numberWithDouble:_nextBeat]];
+            double beatAfter = [self getNextBeat:beatMap];
             for(NSString *instrumentName in beatsToFire){
-                [self drawTrack:instrumentName duration:animationDuration];
+                float beatLength = beatAfter - _nextBeat;
+                if(_resetLoopBeat)
+                    beatLength += [_loopData getNumBeats];
+                [self drawTrack:instrumentName beatLength:beatLength duration:animationDuration];
             }
-            _nextBeat = [self getNextBeat:beatMap];// update next beat by iterating through keys
+            _nextBeat = beatAfter;// update next beat by iterating through keys
         }
     }
 }
@@ -159,27 +180,13 @@
 - (double)getFirstBeat
 {
     NSDictionary *beatMap = [_loopData getBeatMap];
-    NSArray *sortedKeys = [[beatMap allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        NSNumber *num1 = obj1;
-        NSNumber *num2 = obj2;
-        if ( num1.doubleValue < num2.doubleValue ) {
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        return (NSComparisonResult)NSOrderedDescending;
-    }];
+    NSArray *sortedKeys = [self sortedBeats:beatMap];
     return ((NSNumber *)sortedKeys[0]).doubleValue;
 }
 
 - (double)getNextBeat:(NSDictionary *)beatMap
 {
-    NSArray *sortedKeys = [[beatMap allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        NSNumber *num1 = obj1;
-        NSNumber *num2 = obj2;
-        if ( num1.doubleValue < num2.doubleValue ) {
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        return (NSComparisonResult)NSOrderedDescending;
-    }];
+    NSArray *sortedKeys = [self sortedBeats:beatMap];
     // check if user has hit the beat yet if not, turn on filter/fire mistakes
     int indexOfNextKey = [sortedKeys indexOfObject:[NSNumber numberWithDouble:_nextBeat]] + 1;
     if(indexOfNextKey >= sortedKeys.count){
@@ -191,52 +198,83 @@
     return ((NSNumber *)sortedKeys[indexOfNextKey]).doubleValue;
 }
 
-- (void)drawTrack:(NSString *)instrumentName duration:(double)animationDuration
+- (NSArray *)sortedBeats:(NSDictionary *)beatMap
 {
-//    // duration to get top of track to top of train
-//    int noteNumber = [[instrumentName substringFromIndex:(instrumentName.length - 1)] intValue];
-//    int numInstruments = [[_loopData getInstrumentNames] count];
-//    int column = numInstruments - noteNumber;
-//    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-//    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-//    // calculate track length
-//    SKShapeNode *circle = [SKShapeNode shapeNodeWithCircleOfRadius:20];
-//    circle.fillColor = [SKColor greenColor];
-//    [circle setPosition:CGPointMake(column * screenWidth/numInstruments + (screenWidth/numInstruments)/2, screenHeight + circle.frame.size.height/2)];
-//    [self addChild:circle];
-//    circle.zPosition = -1;
-//    SKAction *dropBall = [SKAction moveToY:screenHeight/5 + circle.frame.size.height/2 duration:animationDuration];
-//    [circle runAction:dropBall completion:^(void){
-//        if(_slider.value >= _slider.maximumValue * (column/(double)numInstruments) && _slider.value <= _slider.maximumValue * (column+1)/(double)numInstruments){
-//            _streakCounter ++;
-//        } else {
-//            _streakCounter = 0;
-////            [self flashRedScreen];
-//        }
-//        [self updateStreakCounterDisplay];
-//        [self removeChildrenInArray:@[circle]];
-//    }];
-    
+    NSArray *sortedKeys = [[beatMap allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSNumber *num1 = obj1;
+        NSNumber *num2 = obj2;
+        if ( num1.doubleValue < num2.doubleValue ) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedDescending;
+    }];
+    return sortedKeys;
 }
 
-//- (void)flashRedScreen
-//{
-//    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-//    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-//    CGRect rect = CGRectMake(0, 0, screenWidth, screenHeight);
-//    SKShapeNode *redCover = [SKShapeNode shapeNodeWithRect:rect];
-//    redCover.fillColor = [SKColor redColor];
-//    redCover.userInteractionEnabled = NO;
-//    [self addChild:redCover];
-//    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:.4];
-//    [redCover runAction:fadeOut completion:^(void){
-//        [self removeChildrenInArray:@[redCover]];
-//    }];
-//}
-
-- (void)updateStreakCounterDisplay
+- (void)drawTrack:(NSString *)instrumentName beatLength:(double)beatLength duration:(double)animationDuration
 {
-    _streakDisplay.text = [NSString stringWithFormat:@"%i", _streakCounter];
+    // initialize variables
+    int noteNumber = [[instrumentName substringFromIndex:(instrumentName.length - 1)] intValue];
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat initialDistance = screenHeight - _train.position.y - _train.size.height/2;
+    // calculate track length
+    CGFloat trackSpacing = 20;
+    CGFloat distancePerBeat = initialDistance/2;
+    CGFloat length = distancePerBeat * beatLength - trackSpacing;
+    // initialize track
+    SKSpriteNode *track = [self buildTrack:length];
+    CGFloat xPos = noteNumber == 1 ? _leftTrackCenter : _rightTrackCenter; // only built for two instruments
+    [track setPosition:CGPointMake(xPos - track.size.width/2, screenHeight)];
+    track.zPosition = -1;
+    [self addChild:track];
+    // move track
+    [self moveTrack:track initialDistance:initialDistance duration:animationDuration];
+}
+
+- (SKSpriteNode *)buildTrack:(double)length
+{
+    CGFloat trackWidth = _train.size.width/_train.xScale + 10;
+    SKSpriteNode *track = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(trackWidth, length)];
+    
+    //build side rails
+    SKSpriteNode *leftRail = [SKSpriteNode spriteNodeWithColor:[UIColor yellowColor] size:CGSizeMake(2, length)];
+    SKSpriteNode *rightRail = [SKSpriteNode spriteNodeWithColor:[UIColor yellowColor] size:CGSizeMake(2, length)];
+    leftRail.position = CGPointMake(8, length/2);
+    rightRail.position = CGPointMake(trackWidth - 8, length/2);
+    [track addChild:leftRail];
+    [track addChild:rightRail];
+    
+    //build cross hatches
+    CGFloat spacing = 15;
+    for(CGFloat startingPosition = 2; startingPosition < length; startingPosition += spacing){
+        SKSpriteNode *railCross = [SKSpriteNode spriteNodeWithColor:[UIColor yellowColor] size:CGSizeMake(trackWidth, .7)];
+        railCross.position = CGPointMake(trackWidth/2, startingPosition);
+        [track addChild:railCross];
+    }
+    
+    // return track
+    return track;
+}
+
+- (void)moveTrack:(SKSpriteNode *)track initialDistance:(CGFloat)initialDistance duration:(double)animationDuration
+{
+    //  move track
+    SKAction *moveTrackToTrain = [SKAction moveToY:_train.position.y + _train.size.height/2 duration:animationDuration];
+    CGFloat outDestination = _train.position.y - track.size.height - _train.size.height/2;
+    CGFloat outDistance = _train.position.y + _train.size.height/2 - outDestination;
+    SKAction *moveTrackOut = [SKAction moveToY:outDestination duration:animationDuration * (outDistance/initialDistance)];
+    [track runAction:moveTrackToTrain completion:^(void){
+        if(TRUE){ // evaluate what makes this true at this point in time
+            _streakCounter ++;
+        } else {
+            _streakCounter = 0;
+            [self flashRedScreen];
+        }
+        [self updateStreakCounterDisplay];
+        [track runAction:moveTrackOut completion:^(void){
+            [self removeChildrenInArray:@[track]];
+        }];
+    }];
 }
 
 @end

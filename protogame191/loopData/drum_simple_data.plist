@@ -12,7 +12,7 @@
 	<integer>100</integer>
 	<key>beat values</key>
 	<dict>
-		<key>01 kick</key>
+		<key>01 note_1</key>
 		<array>
 			<integer>0</integer>
 			<real>0.75</real>
@@ -27,7 +27,7 @@
 			<real>9.5</real>
 			<real>10.5</real>
 		</array>
-		<key>02 snare</key>
+		<key>02 note_2</key>
 		<array>
 			<integer>1</integer>
 			<integer>3</integer>
@@ -38,7 +38,7 @@
 			<integer>13</integer>
 			<integer>15</integer>
 		</array>
-		<key>03 hi hat</key>
+		<key>03 note_3</key>
 		<array>
 			<real>12.5</real>
 			<real>14.5</real>

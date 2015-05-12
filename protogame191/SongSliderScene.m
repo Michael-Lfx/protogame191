@@ -16,7 +16,7 @@
     self.backgroundColor = [SKColor colorWithRed:10.0/255 green:55.0/255 blue:70.0/255 alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFit;
     
-    _loopData = [[LoopData alloc] initWithDataFile:@"loopData/bouncingMark_data"]; // weird with beach, blueSun, distantPianet
+    _loopData = [[LoopData alloc] initWithDataFile:@"loopData/cypress_data"]; // weird with beach, blueSun, distantPianet
     _conductor = [[Conductor alloc] initWithLoopData:_loopData];
     _nextBeat = [self getFirstBeat];
     _resetLoopTime = 0;
@@ -181,7 +181,6 @@
         [self updateStreakCounterDisplay];
         [self removeChildrenInArray:@[circle]];
     }];
-
 }
 
 - (void)flashRedScreen
